@@ -74,7 +74,7 @@ get_unicode(const char *str, int n) {
 }
 
 static inline int
-max(int a, int b, int c, int d) {
+_max(int a, int b, int c, int d) {
 	a = a>b ? a : b;
 	a = a>c ? a : c;
 	a = a>d ? a : d;
@@ -111,8 +111,8 @@ gen_outline(int w, int h, uint8_t *buffer, uint8_t *dest) {
 			} else {
 				right = 1;
 			}
-			int n1 = max(line[j-left],line[j+right],prev[j],next[j]);
-			int n2 = max(prev[j-left],prev[j+right],next[j-left],next[j+right]);
+			int n1 = _max(line[j-left],line[j+right],prev[j],next[j]);
+			int n2 = _max(prev[j-left],prev[j+right],next[j-left],next[j+right]);
 			int edge = (n1*3 + n2) / 4;
 			if (line[j] == 0) {
 				output[j] = edge / 2;
