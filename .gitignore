@@ -1,4 +1,5 @@
 ios/example/example.xcodeproj/project.xcworkspace/
+build/
 ios/example/example.xcodeproj/xcuserdata/
 ej2d
 ej2d.dSYM/*
