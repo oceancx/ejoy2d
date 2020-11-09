@@ -101,11 +101,12 @@ shader_init() {
 	rs->index_buffer = render_buffer_create(rs->R, INDEXBUFFER, idxs, 6 * MAX_COMMBINE, sizeof(uint16_t));
 	rs->vertex_buffer = render_buffer_create(rs->R, VERTEXBUFFER, NULL,  4 * MAX_COMMBINE, sizeof(struct vertex));
 
+	
 	struct vertex_attrib va[4] = {
-		{ "position", 0, 2, sizeof(float), BUFFER_OFFSET(vp.vx) },
-		{ "texcoord", 0, 2, sizeof(uint16_t), BUFFER_OFFSET(vp.tx) },
-		{ "color", 0, 4, sizeof(uint8_t), BUFFER_OFFSET(rgba) },
-		{ "additive", 0, 4, sizeof(uint8_t), BUFFER_OFFSET(add) },
+		{ "position", 0, 2, sizeof(float), BUFFER_OFFSET(vp.vx) },			//0
+		{ "texcoord", 0, 2, sizeof(uint16_t), BUFFER_OFFSET(vp.tx) },		//8
+		{ "color", 0, 4, sizeof(uint8_t), BUFFER_OFFSET(rgba) },			//12
+		{ "additive", 0, 4, sizeof(uint8_t), BUFFER_OFFSET(add) },			//16
 	};
 	rs->layout = render_register_vertexlayout(rs->R, sizeof(va)/sizeof(va[0]), va);
 	render_set(rs->R, VERTEXLAYOUT, rs->layout, 0);
@@ -446,7 +447,10 @@ material_init(void *self, int size, int prog) {
 	memset(self, 0, rsz);
 	struct material * m = (struct material *)self;
 	m->p = p;
+	m->uniform[0] = 1;
+	m->uniform[1] = 0xffffffff;
 	m->reset = false;
+
 	int i;
 	for (i=0;i<MAX_TEXTURE_CHANNEL;i++) {
 		m->texture[i] = -1;
